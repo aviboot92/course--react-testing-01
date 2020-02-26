@@ -3,21 +3,24 @@
   "version": "0.1.0",
   "private": false,
   "license": "MIT",
-	"publisher": "drekevist",
-	"author": {
-		"name": "Boris Drekevist",
-		"url": "https://drekevist.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/drekevist/course--react-testing-01"
-	},
+  "publisher": "drekevist",
+  "author": {
+    "name": "Boris Drekevist",
+    "url": "https://drekevist.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drekevist/course--react-testing-01"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "await-to-js": "^2.1.1",
     "axios": "^0.19.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
     "evergreen-ui": "^4.23.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -33,6 +36,11 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "browserslist": {
     "production": [

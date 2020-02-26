@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CatList /> render() should render as expected 1`] = `
+<Styled(withTheme(Pane))>
+  <withTheme(Pane)
+    className="filters"
+  >
+    <SelectMenu
+      closeOnSelect={true}
+      filterIcon="search"
+      filterPlaceholder="Filter..."
+      hasFilter={false}
+      hasTitle={false}
+      height={248}
+      isMultiSelect={false}
+      onDeselect={[Function]}
+      onSelect={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "affectionate",
+            "value": "affectionate",
+          },
+          Object {
+            "label": "shy",
+            "value": "shy",
+          },
+          Object {
+            "label": "cheeky",
+            "value": "cheeky",
+          },
+        ]
+      }
+      position="bottom-left"
+      width={240}
+    >
+      <withTheme(Button)>
+        Select description
+      </withTheme(Button)>
+    </SelectMenu>
+  </withTheme(Pane)>
+  <withTheme(Pane)
+    className="list"
+  >
+    <withTheme(Pane)
+      key="image1"
+      margin="10px"
+    >
+      <ProductCard
+        age={5}
+        ctaText="adopt"
+        description="Affectionate, Shy"
+        imgSrc="image1"
+        name="Buba"
+        onCtaClick={[Function]}
+      />
+    </withTheme(Pane)>
+    <withTheme(Pane)
+      key="image2"
+      margin="10px"
+    >
+      <ProductCard
+        age={9}
+        ctaText="adopt"
+        description="Affectionate, Cheeky"
+        imgSrc="image2"
+        name="Mittens"
+        onCtaClick={[Function]}
+      />
+    </withTheme(Pane)>
+  </withTheme(Pane)>
+</Styled(withTheme(Pane))>
+`;

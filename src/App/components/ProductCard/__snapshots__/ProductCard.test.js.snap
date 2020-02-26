@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProductCard /> should render as expected 1`] = `
+<withTheme(Pane)
+  borderColor="#EEE"
+  borderRadius="5px"
+  borderStyle="solid"
+  borderWidth="1px"
+  display="grid"
+  gridTemplateColumns="1fr 1fr"
+>
+  <img
+    alt="Buba"
+    src="imgSrc"
+    width="100%"
+  />
+  <withTheme(Pane)
+    padding="10px"
+  >
+    <h3
+      style={
+        Object {
+          "marginTop": 0,
+        }
+      }
+    >
+      Buba
+      , 
+      5
+    </h3>
+    <h5>
+      Affectionate, Cheeky
+    </h5>
+    <withTheme(Button)
+      onClick={[Function]}
+    >
+      Adopt
+    </withTheme(Button)>
+  </withTheme(Pane)>
+</withTheme(Pane)>
+`;
