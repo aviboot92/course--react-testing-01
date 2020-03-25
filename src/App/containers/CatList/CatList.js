@@ -5,6 +5,57 @@ import getCopy from '../../helpers/getCopy'
 import CatsService from '../../services/CatService'
 import ProductCard from '../../components/ProductCard/ProductCard'
 
+// HELPERS
+/**
+ * @param {Array<Object>} cats
+ * @param {string} selectedDescription
+ * @return {Array<Object>}
+ */
+export function getFilteredCats(cats, selectedDescription) {
+	if (!selectedDescription) {
+		return cats
+	}
+
+	return cats.filter(cat => {
+		return cat.description.toLowerCase().includes(selectedDescription)
+	})
+}
+
+/**
+ * @param {Array<Object>} cats
+ * @returns {Array<string>}
+ */
+export function getAvailableDescriptions(cats) {
+	return cats.reduce((uniqDescs, cat) => {
+		const descs = cat.description.split(', ')
+		for (const desc of descs) {
+			const lc = desc.toLowerCase()
+			if (!uniqDescs.includes(lc)) {
+				uniqDescs.push(lc)
+			}
+		}
+
+		return uniqDescs
+	}, [])
+}
+
+/**
+ * @param {string} selectedDescription
+ * @returns {string}
+ */
+export function getDescriptionFilterLabel(selectedDescription) {
+	return selectedDescription || 'Select description'
+}
+
+/**
+ * @param {Array<string>} availableDescriptions 
+ * @returns {Array<{ value: string, label: string }>}
+ */
+export function getDescriptionFilterOptions(availableDescriptions) {
+	return availableDescriptions.map(label => ({ label, value: label }))
+}
+
+
 export default class CatList extends React.Component {
 	state = {
 		cats: [],
@@ -14,50 +65,6 @@ export default class CatList extends React.Component {
 	async componentDidMount() {
 		const cats = await CatsService.getCats()
 		this.setState({ cats })
-	}
-
-	/**
-	 * @return {Array<{Object}>}
-	 */
-	get filteredCats() {
-		if (!this.state.selectedDescription) {
-			return this.state.cats
-		}
-
-		return this.state.cats.filter(cat => {
-			return cat.description.toLowerCase().includes(this.state.selectedDescription)
-		})
-	}
-
-	/**
-	 * @returns {Array<{string}>}
-	 */
-	get availableDescriptions() {
-		return this.state.cats.reduce((uniqDescs, cat) => {
-			const descs = cat.description.split(', ')
-			for (const desc of descs) {
-				const lc = desc.toLowerCase()
-				if (!uniqDescs.includes(lc)) {
-					uniqDescs.push(lc)
-				}
-			}
-
-			return uniqDescs
-		}, [])
-	}
-
-	/**
-	 * @returns {Array<{ value: string, label: string }>}
-	 */
-	get descriptionFilterOptions() {
-		return this.availableDescriptions.map(label => ({ label, value: label }))
-	}
-
-	/**
-	 * @returns {string}
-	 */
-	get descriptionFilterLabel() {
-		return this.state.selectedDescription || 'Select description'
 	}
 
 	/**
@@ -77,22 +84,28 @@ export default class CatList extends React.Component {
 	}
 
 	render() {
+		const { cats, selectedDescription } = this.state
+		const filteredCats = getFilteredCats(cats, selectedDescription)
+		const availableDescriptions = getAvailableDescriptions(cats)
+		const descriptionFilterOptions = getDescriptionFilterOptions(availableDescriptions)
+		const descriptionFilterLabel = getDescriptionFilterLabel(selectedDescription)
+
 		return (
 			<Styled>
 				<Pane className="filters">
 					<SelectMenu
 						hasTitle={false}
 						hasFilter={false}
-						options={this.descriptionFilterOptions}
-						selected={this.state.selectedDescription}
+						options={descriptionFilterOptions}
+						selected={selectedDescription}
 						onSelect={this.handleDescriptionFilter}
 						closeOnSelect={true}
 					>
-						<Button>{this.descriptionFilterLabel}</Button>
+						<Button>{descriptionFilterLabel}</Button>
 					</SelectMenu>
 				</Pane>
 				<Pane className="list">
-					{this.filteredCats.map(cat => (
+					{filteredCats.map(cat => (
 						<Pane margin="10px" key={cat.image}>
 							<ProductCard
 								name={cat.name}
